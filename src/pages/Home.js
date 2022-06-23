@@ -17,7 +17,6 @@ function Home(props) {
                 const data = await getDocs(postsCollectionRef);
                 const postListdata = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
                 return postListdata;
-                // setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
             }
             catch (error) {
                 alert(error)

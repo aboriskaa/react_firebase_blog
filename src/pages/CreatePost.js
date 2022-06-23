@@ -14,15 +14,6 @@ function CreatePost(props) {
         return (tit.length <= 3) || (text.length <= 10)
     }
 
-    // let butStatus;
-
-    // butStatus = aler(title, postText)
-
-    // console.log(butStatus)
-
-
-
-
     let navigate = useNavigate();
 
     const postsCollectionRef = collection(db, "posts");
