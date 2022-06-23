@@ -14,12 +14,11 @@ function Login(props) {
             navigate("/");
         })
     }
-    return (
-        <div className="loginPage">
-            <p>Sign In With Google to Continue</p>
-            <button onClick={signInWithGoogle} className="login-with-google-btn">Sign in with Google</button>
-        </div>
-    )
+
+    return <div className="loginPage">
+        <p>Sign In With Google to Continue</p>
+        <button onClick={signInWithGoogle} className="login-with-google-btn">Sign in with Google</button>
+    </div>
 }
 
 export default Login
