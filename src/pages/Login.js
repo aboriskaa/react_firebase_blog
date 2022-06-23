@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { auth, provider } from '../firebase-config'
 import { signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom'
 function Login(props) {
 
     let navigate = useNavigate();
+
+    useEffect(() => {
+        if (props.isAuth) navigate("/")
+    }, [props.isAuth, navigate])
 
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider).then(() => {
