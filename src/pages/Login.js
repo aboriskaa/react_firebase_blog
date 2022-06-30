@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { auth, provider } from '../firebase-config'
 import { signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import { Grid, Container, IconButton, Toolbar, Typography, Box, Menu, Avatar, Button, Tooltip, MenuItem, Paper } from '@mui/material';
+import styles from './Login.module.css'
 
 function Login(props) {
 
@@ -21,10 +23,35 @@ function Login(props) {
         })
     }
 
-    return <div className="loginPage">
-        <p>Sign In With Google to Continue</p>
-        <button onClick={signInWithGoogle} className="login-with-google-btn">Sign in with Google</button>
-    </div>
+    return (
+        <>
+            <Container fixed>
+                <Grid container spacing={2} mt='20px' sx={{}}>
+                    <Grid item xs={12} md={12} sx={{}}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Typography>For security purposes, I only use sign In With Google</Typography>
+
+                        </Box>
+                        <Box mt="5px"
+                            sx={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Box> <button onClick={signInWithGoogle} className={styles.loginWithGoogleBtn}>Sign in with Google</button></Box>
+                        </Box>
+
+                    </Grid>
+                </Grid>
+            </Container>
+        </>
+    )
 }
 
 export default Login

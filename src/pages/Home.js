@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../firebase-config'
 import Preloader from '../components/Preloader'
-import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid, Container, Card, CardActions, Box, CardContent, Button, AccordionSummary, Accordion, Typography, CardMedia } from '@mui/material';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 
 function Home(props) {
 
@@ -55,35 +58,73 @@ function Home(props) {
     }
 
     return <>{loading ? <Preloader /> :
-        <div className="homePage">{postLists.map((post) => {
-            return (
-                <div className="post" key={post.id}>
-                    <div className="postHeader">
-                        <div className="title">
-                            <h1>{post.title}</h1>
-                        </div>
-                        <div className="deletePost">
-                            {props.isAuth && post.author.id === auth.currentUser.uid &&
-                                <Button
-                                    onClick={() => {
-                                        setLoading(true)
-                                        setDelPost(post.id)
-                                    }}
-                                    variant="outlined"
-                                    startIcon={<DeleteIcon />
-                                    }>
-                                    Delete
-                                </Button>
-                            }
+        <Container>
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2} mt='20px'>
 
-                        </div>
-                    </div>
-                    <div className="postTextContainer">{post.postText}</div>
-                    <h3>@{post.author.name}</h3>
-                </div>
-            )
-        })}
-        </div>}
+                    {postLists.map((post) => {
+                        return (
+                            <Grid item xs={12} sm={6} md={4} key={post.id}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <Card sx={{ maxWidth: 375 }} >
+                                        <Typography variant="caption" display="block" gutterBottom>
+                                            @{post.author.name}
+                                        </Typography>
+                                        <CardMedia
+                                            component="img"
+                                            height="140"
+                                            image="https://picsum.photos/200/300?random=1"
+                                            alt="green iguana"
+                                        />
+                                        <CardContent>
+                                            <Accordion>
+                                                <AccordionSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1a-content"
+                                                    id="panel1a-header"
+                                                >
+                                                    <Typography gutterBottom variant="h5" component="div">{post.title}</Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {post.postText}
+                                                    </Typography>
+                                                </AccordionDetails>
+                                            </Accordion>
+
+                                        </CardContent>
+                                        <CardActions>
+
+
+                                            {props.isAuth && post.author.id === auth.currentUser.uid &&
+                                                <Button
+                                                    onClick={() => {
+                                                        setLoading(true)
+                                                        setDelPost(post.id)
+                                                    }}
+                                                    variant="outlined"
+                                                    startIcon={<DeleteIcon />
+                                                    }>
+                                                    Delete
+                                                </Button>
+                                            }
+
+                                        </CardActions>
+                                    </Card>
+                                </Box>
+                            </Grid>
+                        )
+                    })}
+
+                </Grid>
+            </Box>
+        </Container>
+    }
     </>
 }
 

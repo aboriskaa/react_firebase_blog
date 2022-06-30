@@ -1,18 +1,27 @@
 import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 import preloader from './preloader.svg'
+import { Box, CircularProgress, Container, Grid } from '@mui/material';
 
 let Preloader = () => {
     return <>
-        <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        >
-            <CircularProgress color="inherit" />
-        </Backdrop>
-        <div className='preloader_wrapper'>
-            <img className='preloader' src={preloader} alt="Loading..." />
-        </div></>
+        <Container fixed>
+            <Grid container spacing={2} mt='20px' sx={{}}>
+                <Grid item xs={12} md={12} sx={{}}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <CircularProgress />
+
+                    </Box>
+
+                </Grid>
+            </Grid>
+        </Container>
+    </>
 }
 
 export default Preloader

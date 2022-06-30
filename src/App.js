@@ -1,4 +1,3 @@
-import './App.css';
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
@@ -13,12 +12,14 @@ function App() {
   return (
     <>
       <NavBar isAuth={isAuth} setIsAuth={setIsAuth} />
-      <Routes>
-        <Route path="*" element={<Home isAuth={isAuth} />} />
-        <Route path="/" element={<Home isAuth={isAuth} />} />
-        <Route path="/createpost" element={<CreatePost isAuth={isAuth} />} />
-        <Route path="/login" element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="*" element={<Home isAuth={isAuth} />} />
+          <Route path="/" element={<Home isAuth={isAuth} />} />
+          <Route path="/createpost" element={<CreatePost isAuth={isAuth} />} />
+          <Route path="/login" element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />} />
+        </Routes>
+      </main>
     </>
   );
 }
