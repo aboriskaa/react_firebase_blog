@@ -1,9 +1,26 @@
-import preloader from './preloader.svg'
+import * as React from 'react';
+import { Box, CircularProgress, Container, Grid } from '@mui/material';
 
 let Preloader = () => {
-    return <div className='preloader_wrapper'>
-        <img className='preloader' src={preloader} alt="Loading..." />
-    </div>
+    return <>
+        <Container fixed>
+            <Grid container spacing={2} mt='20px' sx={{}}>
+                <Grid item xs={12} md={12} sx={{}}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <CircularProgress />
+
+                    </Box>
+
+                </Grid>
+            </Grid>
+        </Container>
+    </>
 }
 
 export default Preloader
