@@ -3,9 +3,8 @@ import { getDocs, collection, deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../firebase-config'
 import Preloader from '../components/Preloader'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid, Container, Card, CardActions, Box, CardContent, Button, AccordionSummary, Accordion, Typography, CardMedia } from '@mui/material';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Grid, Container, Card, CardActions, Box, CardContent, Button, Typography, CardMedia } from '@mui/material';
+
 
 
 function Home(props) {
@@ -14,7 +13,11 @@ function Home(props) {
     const [delPost, setDelPost] = useState("");
     const [loading, setLoading] = useState(true);
 
-
+    function RandomPicUrl(int) {
+        let num = Math.floor(Math.random() * int);
+        let url = "https://picsum.photos/375/200?random=" + num
+        return url
+    }
 
     useEffect(() => {
 
@@ -22,12 +25,12 @@ function Home(props) {
             try {
                 const postsCollectionRef = collection(db, "posts");
                 const data = await getDocs(postsCollectionRef);
-                const postListdata = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+                const postListdata = data.docs.map((doc) => ({ ...doc.data(), id: doc.id, picURL: RandomPicUrl(99) }));
 
                 postListdata.sort((a, b) => {
                     return b.date.seconds - a.date.seconds;
                 });
-
+                // console.log(postListdata)
                 return postListdata;
             }
             catch (error) {
@@ -60,7 +63,7 @@ function Home(props) {
     return <>{loading ? <Preloader /> :
         <Container>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2} mt='20px'>
+                <Grid container spacing={2} mb='20px' mt='20px'>
 
                     {postLists.map((post) => {
                         return (
@@ -71,35 +74,25 @@ function Home(props) {
                                         justifyContent: 'center'
                                     }}
                                 >
-                                    <Card sx={{ maxWidth: 375 }} >
+                                    <Card sx={{ minWidth: 375, maxWidth: 375 }} >
                                         <Typography variant="caption" display="block" gutterBottom>
                                             @{post.author.name}
                                         </Typography>
                                         <CardMedia
                                             component="img"
-                                            height="140"
-                                            image="https://picsum.photos/200/300?random=1"
-                                            alt="green iguana"
+                                            height="200"
+                                            image={post.picURL}
+                                            alt="Random pic"
                                         />
                                         <CardContent>
-                                            <Accordion>
-                                                <AccordionSummary
-                                                    expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel1a-content"
-                                                    id="panel1a-header"
-                                                >
-                                                    <Typography gutterBottom variant="h5" component="div">{post.title}</Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <Typography variant="body2" color="text.secondary">
-                                                        {post.postText}
-                                                    </Typography>
-                                                </AccordionDetails>
-                                            </Accordion>
+                                            <Typography gutterBottom variant="h5" component="div">{post.title}</Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {post.postText}
+                                            </Typography>
+
 
                                         </CardContent>
                                         <CardActions>
-
 
                                             {props.isAuth && post.author.id === auth.currentUser.uid &&
                                                 <Button

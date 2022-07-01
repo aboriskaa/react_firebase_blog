@@ -1,5 +1,4 @@
 import * as React from 'react';
-import preloader from './preloader.svg'
 import { Box, CircularProgress, Container, Grid } from '@mui/material';
 
 let Preloader = () => {

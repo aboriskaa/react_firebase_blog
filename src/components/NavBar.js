@@ -11,9 +11,13 @@ const settings = ['Create post', 'Logout'];
 
 function NavBar(props) {
 
+    // let location = useLocation();
+    // let path = location.pathname;
+    // console.log(path)
+
     let navigate = useNavigate();
 
-    let logo = "ABRAMOV BORIS"
+    let logo = "A. BORIS react portfolio"
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { auth, provider } from '../firebase-config'
 import { signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import { Grid, Container, IconButton, Toolbar, Typography, Box, Menu, Avatar, Button, Tooltip, MenuItem, Paper } from '@mui/material';
+import { Grid, Container, Typography, Box } from '@mui/material';
 import styles from './Login.module.css'
 
 function Login(props) {
