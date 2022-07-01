@@ -1,50 +1,32 @@
-import './App.css';
-import { Routes, Route, Link } from 'react-router-dom'
-import { auth } from './firebase-config'
 import { useState } from 'react';
-import { signOut } from 'firebase/auth'
+import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import CreatePost from './pages/CreatePost'
-import { useNavigate } from "react-router-dom";
-
+import About from './pages/About'
+import NavBar from './components/NavBar'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import E404 from './pages/E404';
 
 function App() {
 
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-  let navigate = useNavigate();
+  const theme = createTheme();
 
-  const signUserOut = () => {
-    signOut(auth).then((result) => {
-      if (result !== null) {
-        localStorage.clear()
-        setIsAuth(false)
-        navigate("/login");
-      }
-      // window.location.pathname = "/login"
-    })
-  }
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
 
   return (
-    <>
-      <nav>
-        <Link to="/">Home</Link>
-        {!isAuth ?
-          (<Link to="/login">Login</Link>) : (
-            <>
-              <Link to="/createpost">Create Post</Link>
-              {/* <i onClick={signUserOut} className="fa-solid fa-person-walking-dashed-line-arrow-right"> EXIT</i> */}
-              <button className="logOutBut" onClick={signUserOut}>Log out</button>
-            </>
-          )}
-      </nav>
-      <Routes>
-        <Route path="*" element={<Home isAuth={isAuth} />} />
-        <Route path="/" element={<Home isAuth={isAuth} />} />
-        <Route path="/createpost" element={<CreatePost isAuth={isAuth} />} />
-        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
-      </Routes>
-    </>
+    <ThemeProvider theme={theme}>
+      <NavBar isAuth={isAuth} setIsAuth={setIsAuth} />
+      <main>
+        <Routes>
+          <Route path="*" element={<E404 />} />
+          <Route path="/" element={<Home isAuth={isAuth} />} />
+          <Route path="/createpost" element={<CreatePost isAuth={isAuth} />} />
+          <Route path="/login" element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />} />
+          <Route path="/about" element={<About isAuth={isAuth} setIsAuth={setIsAuth} />} />
+        </Routes>
+      </main>
+    </ThemeProvider>
   );
 }
 
