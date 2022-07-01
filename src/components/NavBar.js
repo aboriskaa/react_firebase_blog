@@ -17,7 +17,7 @@ function NavBar(props) {
 
     let navigate = useNavigate();
 
-    let logo = "A. BORIS react portfolio"
+    let logo = "A. BORIS"
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);

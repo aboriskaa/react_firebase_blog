@@ -69,7 +69,7 @@ function About(theme) {
                                         color: 'primary.main'
                                     }} variant="h5" component="div">{steps[activeStep].label}</Typography>
                                 </Paper>
-                                <Box sx={{ height: 200, maxWidth: 400, width: '100%', p: 2 }}>
+                                <Box sx={{ height: 240, maxWidth: 400, width: '100%', p: 2 }}>
                                     {steps[activeStep].description}
                                 </Box>
                                 <MobileStepper
