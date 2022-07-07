@@ -5,8 +5,6 @@ import Preloader from '../components/Preloader'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Grid, Container, Card, CardActions, Box, CardContent, Button, Typography, CardMedia } from '@mui/material';
 
-
-
 function Home(props) {
 
     const [postLists, setPostList] = useState([]);

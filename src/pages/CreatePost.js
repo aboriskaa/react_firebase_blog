@@ -31,7 +31,7 @@ function CreatePost(props) {
     }
 
     const aler = (tit, text) => {
-        return (tit.length <= 3) || (text.length <= 10)
+        return (tit.length < 3) || (text.length < 10)
     }
 
     let navigate = useNavigate();
