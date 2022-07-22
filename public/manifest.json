@@ -1,7 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "start_url": ".",
+  "short_name": "React + Firebase",
+  "name": "React + Firebase",
+  "start_url": "https://blogapp-850b9.web.app/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

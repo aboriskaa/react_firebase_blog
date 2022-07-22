@@ -2,6 +2,7 @@
   "name": "react_firebase_blog",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://blogapp-850b9.web.app/",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",

@@ -61,7 +61,7 @@ function Home(props) {
     return <>{loading ? <Preloader /> :
         <Container>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2} mb='20px' mt='20px'>
+                <Grid container spacing={3} mb='20px' mt='20px'>
 
                     {postLists.map((post) => {
                         return (
