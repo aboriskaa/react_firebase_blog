@@ -16,7 +16,7 @@ function Login(props) {
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider).then(() => {
             localStorage.setItem("isAuth", true)
-            localStorage.setItem("dispalyName", auth.currentUser.displayName)
+            localStorage.setItem("displayName", auth.currentUser.displayName)
             localStorage.setItem("photoURL", auth.currentUser.photoURL)
             props.setIsAuth(true);
             navigate("/");
