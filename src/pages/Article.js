@@ -8,18 +8,12 @@ import { Grid, Container, Card, CardActions, Box, CardContent, Button, Typograph
 
 function Home(props) {
 
-
     const [postLists, setPostList] = useState([]);
     const [delPost, setDelPost] = useState("");
     const [loading, setLoading] = useState(true);
 
     let navigate = useNavigate();
 
-    function doCutString(article, colWord) {
-        let arr = article.split(' ', colWord);
-        arr.push("...");
-        return article = arr.join(" ");
-    }
     function RandomPicUrl(int) {
         let num = Math.floor(Math.random() * int);
         let url = "https://picsum.photos/375/200?random=" + num
@@ -32,7 +26,8 @@ function Home(props) {
             try {
                 const postsCollectionRef = collection(db, "posts");
                 const data = await getDocs(postsCollectionRef);
-                const postListData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id, picURL: RandomPicUrl(20) }));
+                const postListData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id, picURL: RandomPicUrl(20) }))
+                    .filter(i => i.id === localStorage.getItem("viewId"));
 
                 postListData.sort((a, b) => {
                     return b.date.seconds - a.date.seconds;
@@ -73,14 +68,14 @@ function Home(props) {
                 <Grid container spacing={3} mb='20px' mt='20px'>
                     {postLists.map((post) => {
                         return (
-                            <Grid item xs={12} sm={6} md={4} key={post.id}>
+                            <Grid item xs={12} sm={12} md={12} key={post.id}>
                                 <Box
                                     sx={{
                                         display: 'flex',
                                         justifyContent: 'center'
                                     }}
                                 >
-                                    <Card sx={{ minWidth: 375, maxWidth: 375 }} >
+                                    <Card sx={{ minWidth: 375, maxWidth: 800 }} >
                                         <Typography variant="caption" display="block" gutterBottom>
                                             @{post.author.name}
                                         </Typography>
@@ -91,9 +86,9 @@ function Home(props) {
                                             alt="Random pic"
                                         />
                                         <CardContent>
-                                            <Typography gutterBottom variant="h5" component="div">{doCutString(post.title, 7)}</Typography>
+                                            <Typography gutterBottom variant="h5" component="div">{post.title}</Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                {doCutString(post.postText, 50)}
+                                                {post.postText}
                                             </Typography>
 
 
@@ -102,9 +97,11 @@ function Home(props) {
 
                                             {props.isAuth && post.author.id === auth.currentUser.uid &&
                                                 <Button
-                                                    onClick={() => {
-                                                        setLoading(true)
-                                                        setDelPost(post.id)
+                                                    onClick={async () => {
+                                                        setLoading(true);
+                                                        await setDelPost(post.id);
+                                                        navigate("/");
+
                                                     }}
                                                     variant="outlined"
                                                     startIcon={<DeleteIcon />
@@ -112,15 +109,7 @@ function Home(props) {
                                                     Delete
                                                 </Button>
                                             }
-                                            <Button
-                                                onClick={() => {
-                                                    localStorage.setItem("viewId", post.id)
-                                                    navigate("/article");
-                                                }}
-                                                variant="outlined"
-                                            >
-                                                View article
-                                            </Button>
+
                                         </CardActions>
                                     </Card>
                                 </Box>
